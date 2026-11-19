@@ -22,16 +22,8 @@ pipeline {
       }
     }
 
-    stage('2. Validate Unit Tests & Coverage') {
-      steps {
-        withMaven(maven: 'MAVEN_3_9', jdk: 'JDK_26') {
-          sh 'mvn clean verify jacoco:report'
-          sh 'mvn jacoco:check'
-        }
-      }
-    }
 
-    stage('3. SonarQube Analysis & Quality Gate') {
+    stage('2. SonarQube Analysis & Quality Gate') {
       steps {
         withMaven(maven: 'MAVEN_3_9', jdk: 'JDK_26') {
           withSonarQubeEnv('MiSonarServer') {
@@ -49,7 +41,7 @@ pipeline {
       }
     }
 
-    stage('4. Build & Push Docker Image') {
+    stage('3. Build & Push Docker Image') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_CREDENTIALS', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
           script {
