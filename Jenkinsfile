@@ -27,7 +27,7 @@ pipeline {
       steps {
         withMaven(maven: 'MAVEN_3_9', jdk: 'JDK_26') {
           withSonarQubeEnv('MiSonarServer') {
-            sh "mvn sonar:sonar -Dsonar.projectKey=retail-store-${STUDENT_CODE}"
+            sh "mvn sonar:sonar -Dsonar.projectKey=learning-center-${STUDENT_CODE}"
           }
         }
         script {
